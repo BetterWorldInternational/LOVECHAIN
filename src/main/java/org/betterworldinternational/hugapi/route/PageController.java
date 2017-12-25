@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -20,7 +21,7 @@ public class PageController {
         this.userService = userService;
     }
 
-    @RequestMapping("/challenge")
+    @RequestMapping(value = "/challenge", method = RequestMethod.GET)
     public String challengePage(@RequestParam(value = "invite", required = false) String invite, Model model) {
         logger.info("Showing challenge page. Invite = {}", invite);
 
