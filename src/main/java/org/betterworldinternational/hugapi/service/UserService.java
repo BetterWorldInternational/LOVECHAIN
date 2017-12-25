@@ -7,15 +7,19 @@ import org.betterworldinternational.hugapi.route.request.RegisterRequest;
 import org.betterworldinternational.hugapi.route.response.EffectResponse;
 import org.betterworldinternational.hugapi.route.response.MapPin;
 import org.betterworldinternational.hugapi.route.response.TokenResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import spark.utils.StringUtils;
 
 import java.security.SecureRandom;
 import java.util.List;
 import java.util.UUID;
 
+@Component
 public class UserService {
     private final UserRepository userRepository;
 
+    @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

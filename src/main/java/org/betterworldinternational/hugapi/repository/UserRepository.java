@@ -1,14 +1,18 @@
 package org.betterworldinternational.hugapi.repository;
 
 import org.betterworldinternational.hugapi.route.response.MapPin;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
 import java.util.List;
 
+@Component
 public class UserRepository {
     private final Sql2o dbClient;
 
+    @Autowired
     public UserRepository(Sql2o dbClient) {
         this.dbClient = dbClient;
     }

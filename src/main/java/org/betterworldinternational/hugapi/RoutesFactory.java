@@ -2,7 +2,7 @@ package org.betterworldinternational.hugapi;
 
 import com.google.gson.Gson;
 import org.betterworldinternational.hugapi.repository.UserRepository;
-import org.betterworldinternational.hugapi.route.PageRoute;
+import org.betterworldinternational.hugapi.route.PageController;
 import org.betterworldinternational.hugapi.route.UserRoute;
 import org.betterworldinternational.hugapi.service.UserService;
 import org.betterworldinternational.hugapi.validation.UserValidation;
@@ -21,7 +21,7 @@ class RoutesFactory {
         UserService userService = new UserService(new UserRepository(new Sql2oFactory().create()));
         return new Routes(
                 new UserRoute(userService, new UserValidation(new ValidatorFactory().create()), gson),
-                new PageRoute(userService),
+                new PageController(userService),
                 responseTransformer);
     }
 }
