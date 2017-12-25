@@ -10,23 +10,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping structure for table hug.invites
-CREATE TABLE IF NOT EXISTS `invites` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `phone` varchar(255) NOT NULL DEFAULT '',
-  `inviter` int(11) NOT NULL,
-  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `inviter_fk` (`inviter`),
-  CONSTRAINT `inviter_fk` FOREIGN KEY (`inviter`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Dumping data for table hug.invites: ~0 rows (approximately)
-DELETE FROM `invites`;
-/*!40000 ALTER TABLE `invites` DISABLE KEYS */;
-/*!40000 ALTER TABLE `invites` ENABLE KEYS */;
-
-
 -- Dumping structure for table hug.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -45,3 +28,18 @@ CREATE TABLE IF NOT EXISTS `users` (
   CONSTRAINT `challenges_fk` FOREIGN KEY (`challengerId`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
+-- Dumping structure for table hug.invites
+CREATE TABLE IF NOT EXISTS `invites` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `phone` varchar(255) NOT NULL DEFAULT '',
+  `inviter` int(11) NOT NULL,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `inviter_fk` (`inviter`),
+  CONSTRAINT `inviter_fk` FOREIGN KEY (`inviter`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table hug.invites: ~0 rows (approximately)
+DELETE FROM `invites`;
+/*!40000 ALTER TABLE `invites` DISABLE KEYS */;
+/*!40000 ALTER TABLE `invites` ENABLE KEYS */;
