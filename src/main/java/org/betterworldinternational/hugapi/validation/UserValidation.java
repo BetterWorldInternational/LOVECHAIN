@@ -12,9 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 public class UserValidation {
-
     public static void validationRegister(RegisterRequest registerRequest) {
-
         List<MessageResponse.Field> errors = new ArrayList<>();
 
         Validator validator = ValidateUtil.validator();
@@ -23,12 +21,10 @@ public class UserValidation {
             errors.add(new MessageResponse.Field(constraintViolation.getPropertyPath().toString(), constraintViolation.getMessage()));
         }
 
-        if(errors.size() != 0) {
+        if (errors.size() != 0) {
             HugException exception = new HugException("validation error");
             exception.setErrors(errors);
             throw exception;
         }
-
     }
-
 }

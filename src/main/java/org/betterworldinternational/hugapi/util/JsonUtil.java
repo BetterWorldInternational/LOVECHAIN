@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import spark.ResponseTransformer;
 
 public class JsonUtil {
-
     public static Gson gson;
 
     static {
@@ -20,8 +19,8 @@ public class JsonUtil {
     public static boolean isValidJson(String json) {
         try {
             Object object = gson.fromJson(json, Object.class);
-            return !(object == null);
-        }catch (Exception ex) {
+            return object != null;
+        } catch (Exception ex) {
             return false;
         }
     }
@@ -29,5 +28,4 @@ public class JsonUtil {
     private static String toJson(Object object) {
         return gson.toJson(object);
     }
-
 }

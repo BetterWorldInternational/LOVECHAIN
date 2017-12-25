@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class UserService {
-
     private UserRepository userRepository;
 
     public UserService() {
@@ -22,17 +21,16 @@ public class UserService {
     }
 
     public TokenResponse registerUser(RegisterRequest registerRequest) {
-
         Integer challengerId = null;
 
-        if(!StringUtils.isEmpty(registerRequest.getInvitationPin())) {
+        if (!StringUtils.isEmpty(registerRequest.getInvitationPin())) {
             challengerId = getChallenger(registerRequest.getInvitationPin().toUpperCase());
-            if(challengerId == null) {
+            if (challengerId == null) {
                 throw new HugException("Wrong invitation pin");
             }
         }
 
-        if(isEmailUsed(registerRequest.getEmail())) {
+        if (isEmailUsed(registerRequest.getEmail())) {
             throw new HugException("Email already used");
         }
 
@@ -45,8 +43,7 @@ public class UserService {
     }
 
     public void userDidIt(int userId, String image, DidItRequest didItRequest) {
-
-        if(image == null) {
+        if (image == null) {
             image = "default";
         }
 
@@ -58,7 +55,6 @@ public class UserService {
     }
 
     public EffectResponse getEffect(int userId) {
-
         EffectResponse effectResponse = new EffectResponse();
         effectResponse.setTotal(userRepository.getEffectCount(userId));
         effectResponse.setActivates(userRepository.getActivatesCount(userId));
@@ -68,46 +64,38 @@ public class UserService {
 
     public int getUserIdByToken(String token) {
         int id = userRepository.getUserIdByToken(token);
-        if(id == 0) {
+        if (id == 0) {
             throw new HugException("Unauthorized");
         }
 
         return id;
     }
 
-    // modified by Jay 09/30/2017
-    public int getAllActivates(){
-    	return userRepository.getAllActivatesCount();
+    public int getAllActivates() {
+        return userRepository.getAllActivatesCount();
     }
 
-    // modified by Jay 09/30/2017    
-    public int getAllEffect(){
-    	return userRepository.getAllEffectCount();
+    public int getAllEffect() {
+        return userRepository.getAllEffectCount();
     }
-    
+
     public int getEffectByInviteCode(String inviteCode) {
         Integer userId = getChallenger(inviteCode);
-        if(userId == null) return 0;
-
-        return getEffect(userId).getTotal();
+        return userId == null ? 0 : getEffect(userId).getTotal();
     }
 
     public int getActivatesByInviteCode(String inviteCode) {
         Integer userId = getChallenger(inviteCode);
-        if(userId == null) return 0;
-
-        return getEffect(userId).getActivates();
+        return userId == null ? 0 : getEffect(userId).getActivates();
     }
 
     private Integer getChallenger(String inviteCode) {
-        if(inviteCode == null) return null;
-
-        return userRepository.getUserIdByInviteCode(inviteCode);
+        return inviteCode == null ? null : userRepository.getUserIdByInviteCode(inviteCode);
     }
 
     private String generateInviteCode() {
         String invitePin = random5String();
-        while(userRepository.getUserIdByInviteCode(invitePin) != null) {
+        while (userRepository.getUserIdByInviteCode(invitePin) != null) {
             invitePin = random5String();
         }
         return invitePin;
@@ -117,8 +105,9 @@ public class UserService {
         String AB = "0123456789ABCDEFGHJKLMNOPQRSTUVWXYZ";
         SecureRandom rnd = new SecureRandom();
         StringBuilder sb = new StringBuilder(5);
-        for( int i = 0; i < 5; i++ )
-            sb.append( AB.charAt( rnd.nextInt(AB.length()) ) );
+        for (int i = 0; i < 5; i++) {
+            sb.append(AB.charAt(rnd.nextInt(AB.length())));
+        }
         return sb.toString();
     }
 

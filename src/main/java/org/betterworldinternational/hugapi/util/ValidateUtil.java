@@ -5,7 +5,6 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 public class ValidateUtil {
-
     private static Validator validator;
 
     static {

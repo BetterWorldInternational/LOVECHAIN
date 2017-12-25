@@ -1,7 +1,6 @@
 package org.betterworldinternational.hugapi.route.request;
 
 public class DidItRequest {
-
     private double latitude;
     private double longitude;
     private String image;

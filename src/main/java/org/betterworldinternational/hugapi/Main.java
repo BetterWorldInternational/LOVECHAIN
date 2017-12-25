@@ -4,15 +4,14 @@ import org.betterworldinternational.hugapi.exception.HugException;
 import org.betterworldinternational.hugapi.route.response.MessageResponse;
 import org.betterworldinternational.hugapi.util.JsonUtil;
 
-import static spark.Spark.*;
+import static spark.Spark.after;
+import static spark.Spark.exception;
+import static spark.Spark.get;
+import static spark.Spark.port;
+import static spark.Spark.post;
 
 public class Main {
-
-    // java -cp hugchallenge-1.0-SNAPSHOT.jar org.betterworldinternational.hugapi.Main
-	// ./gradlew run at localhost
-
     public static void main(String[] args) {
-
         port(80);
 
         new Routes();
@@ -49,7 +48,5 @@ public class Main {
             res.status(404);
             return new MessageResponse(false, "Resource not found");
         }, JsonUtil.json());
-
     }
-
 }

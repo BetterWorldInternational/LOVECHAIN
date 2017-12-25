@@ -3,7 +3,6 @@ package org.betterworldinternational.hugapi.route.response;
 import java.util.List;
 
 public class MessageResponse {
-
     private boolean success;
     private String message;
     private List<Field> errors;

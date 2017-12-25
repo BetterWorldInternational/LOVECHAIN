@@ -5,7 +5,6 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 public class RegisterRequest {
-
     @NotBlank
     @Length(min = 3, max = 255)
     private String username;

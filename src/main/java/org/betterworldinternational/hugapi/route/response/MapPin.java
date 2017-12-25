@@ -1,7 +1,6 @@
 package org.betterworldinternational.hugapi.route.response;
 
 public class MapPin {
-
     private int userId;
     private double latitude;
     private double longitude;

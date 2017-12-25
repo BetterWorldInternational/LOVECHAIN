@@ -1,7 +1,6 @@
 package org.betterworldinternational.hugapi.route.response;
 
 public class TokenResponse {
-
     private String token;
     private String inviteCode;
 

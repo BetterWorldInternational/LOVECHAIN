@@ -1,7 +1,6 @@
 package org.betterworldinternational.hugapi.route.response;
 
 public class EffectResponse {
-
     private int total;
     private int activates;
 

@@ -5,7 +5,6 @@ import org.betterworldinternational.hugapi.route.response.MessageResponse;
 import java.util.List;
 
 public class HugException extends RuntimeException {
-
     private List<MessageResponse.Field> errors;
 
     public HugException(String msg) {
@@ -19,5 +18,4 @@ public class HugException extends RuntimeException {
     public void setErrors(List<MessageResponse.Field> errors) {
         this.errors = errors;
     }
-
 }

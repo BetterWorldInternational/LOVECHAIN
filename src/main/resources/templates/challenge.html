@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <title>Hug Challenge</title>
 
-    <meta property="og:url"           th:content="${url}" />
-    <meta property="og:type"          th:content="'website'" />
-    <meta property="og:title"         th:content="'Number of hugs because of me '+${hugs}" />
-    <meta property="og:description"   th:content="'I challenge you to hug one person and invite 3 others! It is hug challenge app. Download the app here and use this invite code: '+${invite}" />
-    <meta property="og:image"         th:content="'https://s3.amazonaws.com/hug-challenge/logo.png'"  />
-    
-    <meta name="twitter:card"			th:content="'summary_large_image'"/>
-    <meta name="twitter:site"			th:content="'@thegoodcards'"/>
-    <meta name="twitter:creator"		th:content="'@thegoodcards'"/>
-    <meta name="twitter:title"			th:content="'Number of hugs because of me '+${hugs}"/>
-    <meta name="twitter:description"	th:content="'I challenge you to hug one person and invite 3 others! It is hug challenge app. Download the app here and use this invite code: '+${invite}"/>
-    <meta property="twitter:url"		th:content="${url}"/>
-    <meta property="twitter:image"      th:content="'https://s3.amazonaws.com/hug-challenge/logo.png'"/>
+    <meta property="og:url" th:content="${url}"/>
+    <meta property="og:type" th:content="'website'"/>
+    <meta property="og:title" th:content="'Number of hugs because of me '+${hugs}"/>
+    <meta property="og:description"
+          th:content="'I challenge you to hug one person and invite 3 others! It is hug challenge app. Download the app here and use this invite code: '+${invite}"/>
+    <meta property="og:image" th:content="'https://s3.amazonaws.com/hug-challenge/logo.png'"/>
+
+    <meta name="twitter:card" th:content="'summary_large_image'"/>
+    <meta name="twitter:site" th:content="'@thegoodcards'"/>
+    <meta name="twitter:creator" th:content="'@thegoodcards'"/>
+    <meta name="twitter:title" th:content="'Number of hugs because of me '+${hugs}"/>
+    <meta name="twitter:description"
+          th:content="'I challenge you to hug one person and invite 3 others! It is hug challenge app. Download the app here and use this invite code: '+${invite}"/>
+    <meta property="twitter:url" th:content="${url}"/>
+    <meta property="twitter:image" th:content="'https://s3.amazonaws.com/hug-challenge/logo.png'"/>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -33,9 +36,11 @@
         .container {
             margin-top: 50px;
         }
-        .centered{
+
+        .centered {
             margin: 0 auto;
         }
+
         .center-text {
             text-align: center;
             margin-top: 30px;
@@ -56,11 +61,13 @@
             </p>
 
             <p class="lead center-text">
-                Number of people my hugs have reached <br/> <span th:text="${activates}" style="font-size: 28px;">0</span>
+                Number of people my hugs have reached <br/> <span th:text="${activates}"
+                                                                  style="font-size: 28px;">0</span>
             </p>
 
             <p class="lead center-text">
-                I challenge you to hug one person and invite 3 others!<br/>It is hug challenge app.<br/>Download the app here and use this invite code:
+                I challenge you to hug one person and invite 3 others!<br/>It is hug challenge app.<br/>Download the app
+                here and use this invite code:
                 <span style="font-size: 24px; border: 2px #AAA dashed; padding: 2px;" th:text="${invite}"></span>
             </p>
 
@@ -83,7 +90,8 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
 </body>
 </html>

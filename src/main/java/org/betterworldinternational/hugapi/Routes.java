@@ -8,7 +8,6 @@ import static spark.Spark.get;
 import static spark.Spark.post;
 
 public class Routes {
-
     public Routes() {
         prepareUserRoutes();
     }
@@ -22,7 +21,6 @@ public class Routes {
         get("/api/user/map/", userRoute::map, JsonUtil.json());
         get("/api/user/effect/", userRoute::effect, JsonUtil.json());
 
-        //get("/", pageRoute::challengePage);
         get("/challenge", pageRoute::challengePage); //to pageRoute.java, and rendering web page
     }
 }
