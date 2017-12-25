@@ -1,5 +1,6 @@
 package org.betterworldinternational.hugapi.route;
 
+import com.google.gson.Gson;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -11,7 +12,6 @@ import org.betterworldinternational.hugapi.route.response.MapPin;
 import org.betterworldinternational.hugapi.route.response.MessageResponse;
 import org.betterworldinternational.hugapi.route.response.TokenResponse;
 import org.betterworldinternational.hugapi.service.UserService;
-import org.betterworldinternational.hugapi.util.JsonUtil;
 import org.betterworldinternational.hugapi.validation.UserValidation;
 import spark.Request;
 import spark.Response;
@@ -20,19 +20,23 @@ import java.util.List;
 import java.util.Random;
 
 public class UserRoute {
-    private UserService userService;
+    private final UserService userService;
+    private final UserValidation userValidation;
+    private final Gson gson;
 
-    public UserRoute() {
-        userService = new UserService();
+    public UserRoute(UserService userService, UserValidation userValidation, Gson gson) {
+        this.userService = userService;
+        this.userValidation = userValidation;
+        this.gson = gson;
     }
 
     public TokenResponse register(Request request, Response response) {
-        if (!JsonUtil.isValidJson(request.body())) {
+        if (!isValidJson(request.body())) {
             throw new HugException("not valid json request");
         }
 
-        RegisterRequest registerRequest = JsonUtil.gson.fromJson(request.body(), RegisterRequest.class);
-        UserValidation.validationRegister(registerRequest);
+        RegisterRequest registerRequest = gson.fromJson(request.body(), RegisterRequest.class);
+        userValidation.validate(registerRequest);
 
         return userService.registerUser(registerRequest);
     }
@@ -40,11 +44,11 @@ public class UserRoute {
     public MessageResponse didIt(Request request, Response response) {
         int userId = userService.getUserIdByToken(request.headers("token"));
 
-        if (!JsonUtil.isValidJson(request.body())) {
+        if (!isValidJson(request.body())) {
             throw new HugException("not valid json request");
         }
 
-        DidItRequest didItRequest = JsonUtil.gson.fromJson(request.body(), DidItRequest.class);
+        DidItRequest didItRequest = gson.fromJson(request.body(), DidItRequest.class);
 
         if (didItRequest.getLatitude() == 0 || didItRequest.getLongitude() == 0) {
 
@@ -88,5 +92,13 @@ public class UserRoute {
     public EffectResponse effect(Request request, Response response) {
         int userId = userService.getUserIdByToken(request.headers("token"));
         return userService.getEffect(userId);
+    }
+
+    private boolean isValidJson(String json) {
+        try {
+            return gson.fromJson(json, Object.class) != null;
+        } catch (Exception ex) {
+            return false;
+        }
     }
 }

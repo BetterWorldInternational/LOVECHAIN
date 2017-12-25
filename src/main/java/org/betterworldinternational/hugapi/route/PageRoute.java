@@ -10,10 +10,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PageRoute {
-    private UserService userService;
+    private final UserService userService;
 
-    public PageRoute() {
-        this.userService = new UserService();
+    public PageRoute(UserService userService) {
+        this.userService = userService;
     }
 
     public String challengePage(Request request, Response response) {

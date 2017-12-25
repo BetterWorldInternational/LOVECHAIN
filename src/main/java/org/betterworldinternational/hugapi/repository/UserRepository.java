@@ -1,15 +1,21 @@
 package org.betterworldinternational.hugapi.repository;
 
 import org.betterworldinternational.hugapi.route.response.MapPin;
-import org.betterworldinternational.hugapi.util.DBUtil;
 import org.sql2o.Connection;
+import org.sql2o.Sql2o;
 
 import java.util.List;
 
 public class UserRepository {
+    private final Sql2o dbClient;
+
+    public UserRepository(Sql2o dbClient) {
+        this.dbClient = dbClient;
+    }
+
     public int getEffectCount(int userId) {
         String query = "call recursive_lookup(:userId, :isEffect)";
-        try (Connection conn = DBUtil.sql2o().open()) {
+        try (Connection conn = dbClient.open()) {
             return conn.createQuery(query)
                     .addParameter("userId", userId)
                     .addParameter("isEffect", 1)
@@ -19,7 +25,7 @@ public class UserRepository {
 
     public int getActivatesCount(int userId) {
         String query = "call recursive_lookup(:userId, :isEffect)";
-        try (Connection conn = DBUtil.sql2o().open()) {
+        try (Connection conn = dbClient.open()) {
             return conn.createQuery(query)
                     .addParameter("userId", userId)
                     .addParameter("isEffect", 0)
@@ -29,7 +35,7 @@ public class UserRepository {
 
     public int getAllEffectCount() {
         String query = "select count(*) from users where completed = true";
-        try (Connection conn = DBUtil.sql2o().open()) {
+        try (Connection conn = dbClient.open()) {
             return conn.createQuery(query)
                     .executeAndFetchFirst(Integer.class);
         }
@@ -37,7 +43,7 @@ public class UserRepository {
 
     public int getAllActivatesCount() {
         String query = "select count(*) from users";
-        try (Connection conn = DBUtil.sql2o().open()) {
+        try (Connection conn = dbClient.open()) {
             return conn.createQuery(query)
                     .executeAndFetchFirst(Integer.class);
         }
@@ -45,7 +51,7 @@ public class UserRepository {
 
     public void addUser(String username, String email, String token, String inviteCode, Integer challengerId) {
         String query = "insert into users(username, email, token, inviteCode, challengerId) values(:username, :email, :token, :inviteCode, :challengerId)";
-        try (Connection conn = DBUtil.sql2o().open()) {
+        try (Connection conn = dbClient.open()) {
             conn.createQuery(query)
                     .addParameter("username", username)
                     .addParameter("email", email)
@@ -58,7 +64,7 @@ public class UserRepository {
 
     public void userDidIt(int userId, String image, double latitude, double longitude) {
         String query = "update users set completed=true, image=:image, latitude=:latitude,  longitude=:longitude where id=:userId";
-        try (Connection conn = DBUtil.sql2o().open()) {
+        try (Connection conn = dbClient.open()) {
             conn.createQuery(query)
                     .addParameter("userId", userId)
                     .addParameter("latitude", latitude)
@@ -70,7 +76,7 @@ public class UserRepository {
 
     public List<MapPin> getMap() {
         String query = "select id as userId, image, latitude, longitude from users where completed=true";
-        try (Connection conn = DBUtil.sql2o().open()) {
+        try (Connection conn = dbClient.open()) {
             return conn.createQuery(query)
                     .executeAndFetch(MapPin.class);
         }
@@ -78,7 +84,7 @@ public class UserRepository {
 
     public int getUserIdByEmail(String email) {
         String query = "select id from users where email=:email";
-        try (Connection conn = DBUtil.sql2o().open()) {
+        try (Connection conn = dbClient.open()) {
             return conn.createQuery(query, true)
                     .addParameter("email", email)
                     .executeAndFetchFirst(Integer.class);
@@ -89,7 +95,7 @@ public class UserRepository {
 
     public Integer getUserIdByInviteCode(String inviteCode) {
         String query = "select id from users where inviteCode=:inviteCode";
-        try (Connection conn = DBUtil.sql2o().open()) {
+        try (Connection conn = dbClient.open()) {
             return conn.createQuery(query, true)
                     .addParameter("inviteCode", inviteCode)
                     .executeAndFetchFirst(Integer.class);
@@ -100,7 +106,7 @@ public class UserRepository {
 
     public int getUserIdByToken(String token) {
         String query = "select id from users where token=:token";
-        try (Connection conn = DBUtil.sql2o().open()) {
+        try (Connection conn = dbClient.open()) {
             return conn.createQuery(query)
                     .addParameter("token", token)
                     .executeAndFetchFirst(Integer.class);

@@ -14,10 +14,10 @@ import java.util.List;
 import java.util.UUID;
 
 public class UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public UserService() {
-        userRepository = new UserRepository();
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public TokenResponse registerUser(RegisterRequest registerRequest) {
