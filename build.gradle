@@ -28,4 +28,5 @@ dependencies {
     compile group: 'org.sql2o', name: 'sql2o', version: '1.6.0-RC3'
     compile group: 'com.mashape.unirest', name: 'unirest-java', version: '1.4.9'
     testCompile "junit:junit:4.12"
+    testCompile "org.hamcrest:hamcrest-all:1.3"
 }

@@ -17,7 +17,7 @@ public class ExceptionsHandler extends ResponseEntityExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(ExceptionsHandler.class);
 
     @ExceptionHandler(value = { HugException.class })
-    public ResponseEntity<Object> handleHugException(HugException e) {
+    public ResponseEntity<MessageResponse> handleHugException(HugException e) {
         logger.info("Handling external error: {}", e.getMessage());
 
         MessageResponse messageResponse = new MessageResponse(false, e.getMessage());
@@ -27,7 +27,7 @@ public class ExceptionsHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = { RuntimeException.class })
-    public ResponseEntity<Object> handleExceptions(RuntimeException e) {
+    public ResponseEntity<MessageResponse> handleExceptions(RuntimeException e) {
         logger.warn("Handling internal error:", e);
 
         return new ResponseEntity<>(
