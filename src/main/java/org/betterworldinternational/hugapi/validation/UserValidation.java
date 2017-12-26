@@ -3,6 +3,9 @@ package org.betterworldinternational.hugapi.validation;
 import org.betterworldinternational.hugapi.exception.HugException;
 import org.betterworldinternational.hugapi.route.request.RegisterRequest;
 import org.betterworldinternational.hugapi.route.response.MessageResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -10,10 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+@Component
 public class UserValidation {
     private final Validator validator;
 
-    public UserValidation(Validator validator) {
+    @Autowired
+    public UserValidation(@Qualifier("requestValidator") Validator validator) {
         this.validator = validator;
     }
 

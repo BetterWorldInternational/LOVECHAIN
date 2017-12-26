@@ -7,15 +7,18 @@ import org.betterworldinternational.hugapi.route.request.RegisterRequest;
 import org.betterworldinternational.hugapi.route.response.EffectResponse;
 import org.betterworldinternational.hugapi.route.response.MapPin;
 import org.betterworldinternational.hugapi.route.response.TokenResponse;
-import spark.utils.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.security.SecureRandom;
 import java.util.List;
 import java.util.UUID;
 
+@Component
 public class UserService {
     private final UserRepository userRepository;
 
+    @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -23,7 +26,7 @@ public class UserService {
     public TokenResponse registerUser(RegisterRequest registerRequest) {
         Integer challengerId = null;
 
-        if (!StringUtils.isEmpty(registerRequest.getInvitationPin())) {
+        if (registerRequest.getInvitationPin() != null && !registerRequest.getInvitationPin().isEmpty()) {
             challengerId = getChallenger(registerRequest.getInvitationPin().toUpperCase());
             if (challengerId == null) {
                 throw new HugException("Wrong invitation pin");

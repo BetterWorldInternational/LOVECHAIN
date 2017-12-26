@@ -12,12 +12,6 @@ public class MessageResponse {
         this.message = message;
     }
 
-    public MessageResponse(boolean success, String message, List<Field> errors) {
-        this.success = success;
-        this.message = message;
-        this.errors = errors;
-    }
-
     public boolean isSuccess() {
         return success;
     }
