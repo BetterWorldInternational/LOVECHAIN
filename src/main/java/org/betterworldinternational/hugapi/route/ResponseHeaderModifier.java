@@ -23,7 +23,13 @@ public class ResponseHeaderModifier implements ResponseBodyAdvice<Object> {
     }
 
     @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+    public Object beforeBodyWrite(
+            Object body,
+            MethodParameter returnType,
+            MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType,
+            ServerHttpRequest request,
+            ServerHttpResponse response) {
+
         if (request instanceof ServletServerHttpRequest) {
             ServletServerHttpRequest servletServerHttpRequest = (ServletServerHttpRequest) request;
             if (servletServerHttpRequest.getServletRequest().getRequestURI().startsWith(URI_WITH_HEADER)) {
