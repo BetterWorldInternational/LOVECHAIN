@@ -60,5 +60,31 @@ public class MessageResponse {
         public void setMessage(String message) {
             this.message = message;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            Field field = (Field) o;
+
+            if (key != null ? !key.equals(field.key) : field.key != null) {
+                return false;
+            }
+
+            return message != null ? message.equals(field.message) : field.message == null;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = key != null ? key.hashCode() : 0;
+            result = 31 * result + (message != null ? message.hashCode() : 0);
+            return result;
+        }
     }
 }
