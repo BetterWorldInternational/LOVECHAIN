@@ -1,8 +1,5 @@
 package org.betterworldinternational.hugapi.route;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
 import org.betterworldinternational.hugapi.route.request.DidItRequest;
 import org.betterworldinternational.hugapi.route.request.RegisterRequest;
 import org.betterworldinternational.hugapi.route.response.EffectResponse;
@@ -53,28 +50,13 @@ public class UserController {
             @RequestParam(value = "image", required = false) String image) {
         logger.info("DidIt request");
 
-        int userId = userService.getUserIdByToken(token);
-
         if (didItRequest.getLatitude() == 0 || didItRequest.getLongitude() == 0) {
             float random = new Random().nextFloat() * (0.9f - 0.09f) + 0.09f;
-
-            try {
-                HttpResponse<JsonNode> res = Unirest.get("http://freegeoip.net/json/{ip}")
-                        .routeParam("ip", "188.247.75.179")
-                        .asJson();
-
-                double latitude = res.getBody().getObject().getDouble("latitude") + random;
-                double longitude = res.getBody().getObject().getDouble("longitude") + random;
-
-                didItRequest.setLatitude(latitude);
-                didItRequest.setLongitude(longitude);
-
-            } catch (Exception e) {
-                didItRequest.setLatitude(34.049323 + random);
-                didItRequest.setLongitude(-118.252965 + random);
-            }
+            didItRequest.setLatitude(34.049323 + random);
+            didItRequest.setLongitude(-118.252965 + random);
         }
 
+        int userId = userService.getUserIdByToken(token);
         userService.userDidIt(userId, image, didItRequest);
 
         return new MessageResponse(true, "success");
